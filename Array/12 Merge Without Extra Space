@@ -1,0 +1,71 @@
+// { Driver Code Starts
+import java.io.*;
+import java.util.*;
+
+class GFG {
+    // Driver code
+    public static void main(String[] args) throws Exception {
+        BufferedReader br =
+            new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine().trim());
+        while (t-- > 0) {
+            String inputLine[] = br.readLine().trim().split(" ");
+            int n = Integer.parseInt(inputLine[0]);
+            int m = Integer.parseInt(inputLine[1]);
+            int arr1[] = new int[n];
+            int arr2[] = new int[m];
+            inputLine = br.readLine().trim().split(" ");
+            for (int i = 0; i < n; i++) {
+                arr1[i] = Integer.parseInt(inputLine[i]);
+            }
+            inputLine = br.readLine().trim().split(" ");
+            for (int i = 0; i < m; i++) {
+                arr2[i] = Integer.parseInt(inputLine[i]);
+            }
+
+            new Solution().merge(arr1, arr2, n, m);
+
+            StringBuffer str = new StringBuffer();
+            for (int i = 0; i < n; i++) {
+                str.append(arr1[i] + " ");
+            }
+            for (int i = 0; i < m; i++) {
+                str.append(arr2[i] + " ");
+            }
+            System.out.println(str);
+        }
+    }
+}// } Driver Code Ends
+
+
+class Solution {
+
+    public void merge(int arr1[], int arr2[], int n, int m) {
+        // code here
+        int a_low=0, b_low=0, a_high=n-1, b_high=m-1;
+        int temp, temp1;
+        while(a_low<n){
+            if(arr1[a_low]<arr2[b_low]){
+                a_low++;
+            }
+            else{
+                temp = arr1[a_high];
+                for(int j=n-2; j>=a_low; j--){
+                    arr1[j+1] = arr1[j];
+                }
+                while(arr2[b_high]>temp){
+                    b_high--;
+                }
+                for(int j=b_high; j>=0; j--){
+                    temp1 = arr2[j];
+                    arr2[j] = temp;
+                    temp = temp1;
+                }
+                
+                arr1[a_low]=temp;
+            }
+            
+            
+        }
+    }
+}
